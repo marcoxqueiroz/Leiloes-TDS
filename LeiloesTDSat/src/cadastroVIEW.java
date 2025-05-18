@@ -152,11 +152,9 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setStatus(status);
         
         ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
                     // Salvando
                 if (produtodao.cadastrarProduto(produto) == 1) { // Use a instância recebida
                     JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-                    dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar o produto.",
                         "Erro", JOptionPane.ERROR_MESSAGE);
