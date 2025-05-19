@@ -143,22 +143,42 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
-        String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-                    // Salvando
-                if (produtodao.cadastrarProduto(produto) == 1) { // Use a instância recebida
-                    JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao salvar o produto.",
-                        "Erro", JOptionPane.ERROR_MESSAGE);
-            }
+    String nome = cadastroNome.getText().trim();
+    String valor = cadastroValor.getText().trim();
+    String status = "A Venda";
+
+    // Validação de campos obrigatórios
+    if (nome.isEmpty() || valor.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Conversão de valor (aceitando vírgula como separador decimal)
+    double valorConvertido;
+    try {
+        valor = valor.replace(",", "."); // substitui vírgula por ponto
+        valorConvertido = Double.parseDouble(valor);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Valor inválido. Digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Criação e preenchimento do objeto Produto
+    ProdutosDTO produto = new ProdutosDTO();
+    produto.setNome(nome);
+    produto.setValor(valorConvertido);
+    produto.setStatus(status);
+
+    // Salvar no banco de dados
+    ProdutosDAO produtodao = new ProdutosDAO();
+    if (produtodao.cadastrarProduto(produto) == 1) {
+        JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+        // Opcional: limpar campos após cadastro
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "Erro ao salvar o produto.", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

@@ -31,7 +31,7 @@ USE uc11;
 CREATE TABLE `produtos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nome` text DEFAULT NULL,
-  `valor` int(11) DEFAULT NULL,
+  `valor` DECIMAL(9,2) DEFAULT NULL,
   `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
