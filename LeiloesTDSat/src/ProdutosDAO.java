@@ -31,7 +31,7 @@ public class ProdutosDAO {
             String sql = "INSERT INTO produtos (nome, valor, status) VALUES (?,?,?)";
             prep = conn.prepareStatement(sql);
             prep.setString(1, produto.getNome());
-            prep.setInt(2, produto.getValor());
+            prep.setDouble(2, produto.getValor());
             prep.setString(3, produto.getStatus());
 
             status = prep.executeUpdate();
@@ -71,7 +71,7 @@ public class ProdutosDAO {
                 ProdutosDTO p = new ProdutosDTO();
                 p.setId(resultset.getInt("id"));
                 p.setNome(resultset.getString("nome"));
-                p.setValor(resultset.getInt("valor"));  
+                p.setValor(resultset.getDouble("valor"));  
                 p.setStatus(resultset.getString("status"));
                 listagem.add(p);
             }
@@ -91,7 +91,7 @@ public class ProdutosDAO {
                 ProdutosDTO p = new ProdutosDTO();
                 p.setId(resultset.getInt("id"));
                 p.setNome(resultset.getString("nome"));
-                p.setValor(resultset.getInt("valor"));  
+                p.setValor(resultset.getDouble("valor"));  
                 p.setStatus(resultset.getString("status"));
                 listagemVendidos.add(p);
             }
